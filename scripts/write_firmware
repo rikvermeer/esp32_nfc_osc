@@ -1,0 +1,1 @@
+py -3.11 -m esptool --chip esp32 --port COM4 --baud 460800 write_flash --flash_size 4MB 0x1000 "C:\Users\Rik Vermeer\CascadeProjects\windsurf-project\esp32_nfc_controller\firmware\ESP32_GENERIC-20250911-v1.26.1.bin"
