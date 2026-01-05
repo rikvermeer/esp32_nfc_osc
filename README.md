@@ -33,13 +33,8 @@ For each PN532 NFC reader:
    - Flash it using esptool or Thonny IDE
 
 2. **Install required libraries**
-   - Copy the `umqtt` and `uosc` libraries to your ESP32's `/lib` directory
-   - Or install using upip if you have internet connectivity:
-     ```
-     import upip
-     upip.install('micropython-umqtt.simple')
-     upip.install('micropython-uosc')
-     ```
+   - Copy the `uosc` library to your ESP32's `/lib` directory
+   - Copy the `pn532` library to your ESP32's `/lib` directory
 
 3. **Configure WiFi and OSC settings**
    - Edit `main.py` and update these variables:
@@ -56,19 +51,15 @@ For each PN532 NFC reader:
 
 1. Make sure AbletonOSC is properly installed in your Ableton Live's Remote Scripts folder
 2. Start Ableton Live and enable the AbletonOSC control surface in Live's preferences
-3. The ESP32 will send OSC messages in the format `/nfc/reader/{channel} {uid}` when an NFC tag is detected
+3. The ESP32 will send OSC messages in the format `/live/clip/fire {track_id} {clip_id}` when an NFC tag is detected
 
 ## Customizing OSC Messages
 
 You can modify the `send_osc_message()` function in `main.py` to send different OSC messages based on the detected UID. For example, you could map specific UIDs to specific Ableton actions.
+The mapping is done in the `mapping.json` file.
 
 ## Troubleshooting
-
-- Check the serial console for error messages
-- Verify all connections are correct and secure
-- Ensure the I2C addresses match your hardware configuration
+- WiFi must be working. Verify all connections are correct and secure
 - Make sure AbletonOSC is running and the IP/port are correctly configured
-
-## License
-
-MIT
+- Check the serial console for error messages
+- Reboot the device if one of the NFC readers doesn't work.
