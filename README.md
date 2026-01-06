@@ -46,6 +46,10 @@ For each PN532 NFC reader:
 4. **Upload code to ESP32**
    - Upload `main.py` to your ESP32 as `main.py`
    - The ESP32 will automatically run this script on boot
+  
+5. **Configure your own NFC uid**
+   - Edit `mapping.json` file and replace the uid's
+   - Upload `mapping.json`
 
 ## Using with AbletonOSC
 
