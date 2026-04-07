@@ -26,13 +26,25 @@ TYPE_MAP = {
     bytes: 'b',
     float: 'f',
     int: 'i',
-    False: 'F',
-    Impulse: 'I',
-    None: 'N',
-    TimetagNow: 't',
-    True: 'T',
-    unicodetype: 's',
+    str: 's',
 }
+
+def get_typetag(arg):
+    """Get OSC type tag for argument, handling MicroPython compatibility."""
+    # Handle special constant singleton values
+    if arg is True:
+        return 'T'
+    elif arg is False:
+        return 'F'
+    elif arg is None:
+        return 'N'
+    elif arg is TimetagNow:
+        return 't'
+    elif arg is Impulse:
+        return 'I'
+    # Handle by type
+    arg_type = type(arg)
+    return TYPE_MAP.get(arg_type)
 
 
 def pack_addr(addr):
@@ -143,7 +155,7 @@ def create_message(address, *args):
         if isinstance(arg, tuple):
             typetag, arg = arg
         else:
-            typetag = TYPE_MAP.get(type_) or TYPE_MAP.get(arg)
+            typetag = get_typetag(arg)
 
         if typetag in 'ifd':
             data.append(pack('>' + typetag, arg))
